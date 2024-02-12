@@ -1,6 +1,10 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import 'dotenv/config';
 
-console.log(process.env.PORT);
-console.log(uuidv4());
+import { Database } from './db/db';
+import { Server } from './server/server';
+
+const port = Number(process.env.PORT) ?? 4000;
+const db = new Database();
+const app = new Server(port, db);
+
+app.start();
