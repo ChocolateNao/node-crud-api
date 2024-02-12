@@ -1,4 +1,4 @@
-export const validateUser = (
+export const isValidUser = (
   user: Record<string, string | number | string[]>,
 ): boolean => {
   const allowedProperties = ['username', 'age', 'hobbies'];

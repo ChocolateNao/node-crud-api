@@ -8,7 +8,7 @@
     "build": "tsc",
     "start:dev": "ts-node-dev --respawn ./src/index.ts",
     "start:prod": "npm run clear && npm run build && node ./dist/index.js",
-    "start:multi": "echo Not implemented",
+    "start:multi": "cross-env MULTI=true ts-node-dev --respawn ./src/index.ts",
     "lint": "eslint ./src --ext ts --report-unused-disable-directives --max-warnings 0 && prettier \"./src/**/*.ts\" --check",
     "lint:fix": "eslint ./src --ext .ts --report-unused-disable-directives --max-warnings 0 --fix",
     "format:fix": "prettier \"./src/**/*.ts\" --write",

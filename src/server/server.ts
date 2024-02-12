@@ -6,7 +6,7 @@ import { type Database } from '../db/db';
 import { type IUser } from '../models/User.interface';
 import { HttpCustomError } from '../utils/customErrors';
 import { extractUUID } from '../utils/extractUuid';
-import { validateUser } from '../validation/validateUser';
+import { isValidUser } from '../validation/validateUser';
 
 class Server {
   private readonly _port: number;
@@ -15,6 +15,8 @@ class Server {
     string,
     (req: http.IncomingMessage, res: http.ServerResponse) => void
   >;
+
+  private httpServer: http.Server;
 
   constructor(port: number, db: Database) {
     this._port = port;
@@ -29,7 +31,7 @@ class Server {
   }
 
   public start(): void {
-    const server = http.createServer((req, res) => {
+    this.httpServer = http.createServer((req, res) => {
       const method = req.method;
       const url = req.url?.endsWith('/') ? req.url.slice(0, -1) : req.url;
       const route = `${method} ${url?.startsWith('/api/users/') ? '/api/users/' : url}`;
@@ -52,8 +54,14 @@ class Server {
       }
     });
 
-    server.listen(this._port, () => {
+    this.httpServer.listen(this._port, () => {
       console.log(`Server is running on port ${this._port}`);
+    });
+  }
+
+  public stop(): void {
+    this.httpServer.close(() => {
+      console.log(`Server stopped on port ${this._port}`);
     });
   }
 
@@ -128,7 +136,7 @@ class Server {
     });
     req.on('end', () => {
       const data: unknown = JSON.parse(body);
-      if (validateUser(data as Omit<IUser, 'id'>)) {
+      if (isValidUser(data as Omit<IUser, 'id'>)) {
         this._db.createUser(data as Omit<IUser, 'id'>);
         res.writeHead(201, JSON_HEADER);
         res.end();
