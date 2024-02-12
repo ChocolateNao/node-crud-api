@@ -16,13 +16,14 @@
   "rules": {
     "no-shadow": "off",
     "prettier/prettier": "error",
-    "no-underscore-dangle": ["error", { "allow": ["__schema", "__dir"] }],
+    "no-underscore-dangle": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "import/first": "error",
     "import/newline-after-import": "error",
-    "import/no-duplicates": "error"
+    "import/no-duplicates": "error",
+    "typescript-eslint/strict-boolean-expressions": "off"
   },
   "overrides": [
     {
