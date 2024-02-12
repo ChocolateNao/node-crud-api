@@ -1,14 +1,10 @@
 {
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "compilerOptions": {
     "baseUrl": "src",
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "module": "CommonJS",
     "declaration": true,
     "declarationDir": "dist/types",
@@ -17,6 +13,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitAny": true,
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
@@ -25,5 +22,5 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "target": "ES2020"
-  },
+  }
 }
